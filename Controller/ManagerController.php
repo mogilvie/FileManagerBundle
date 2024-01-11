@@ -184,6 +184,7 @@ class ManagerController extends AbstractController {
 
             try {
                 $fs->mkdir($directory);
+                $this->dispatch(FileManagerEvents::POST_MAKE_FOLDER, ['path' => $directory, 'data' => $data]);
                 $this->addFlash('success', $this->translator->trans('folder.add.success'));
             } catch (IOExceptionInterface $e) {
                 $this->addFlash('danger', $this->translator->trans('folder.add.danger', ['%message%' => $data['name']]));
